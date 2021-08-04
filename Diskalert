@@ -1,0 +1,12 @@
+#!/bin/sh
+# Kiểm tra DU nếu > 95% thì restart lại nginx hoặc mariadb để clear file tmp 
+df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }' | while read output;
+do
+  echo $output
+  usep=$(echo $output | awk '{ print $1}' | cut -d'%' -f1  )
+  partition=$(echo $output | awk '{ print $2 }' )
+  if [ $usep -ge 95 ]; then
+    systemctl restart mariadb
+  else echo Do Nothing
+  fi
+done
