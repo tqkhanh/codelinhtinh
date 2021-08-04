@@ -1,5 +1,6 @@
 #!/bin/sh
 # Kiểm tra DU nếu > 95% thì restart lại nginx hoặc mariadb để clear file tmp 
+# chmod u+x .sh
 df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }' | while read output;
 do
   echo $output
