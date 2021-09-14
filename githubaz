@@ -3,3 +3,76 @@ Kiểm tra những khóa hiện có trên ubuntu
 cd ~/.ssh
 
 ls -s
+
+Tạo cặp khóa bí mật và công khai với email tài khoản GitHub
+
+B1: Sử dụng lệnh $ ssh-keygen -t ed25519 -C "your_email@example.com"
+
+B2: Tiếp theo sẽ hỏi chúng ta lưu cặp khóa này ở đâu gợi ý nhấn enter để lưu mặc định, nhưng lưu mặc định thì sẽ ghi đè lên cặp khóa có sẵn là id_ed25519, nên ta sẽ nhập đường dẫn đến file lưu trữ cặp khóa là (/home/khanhtran/.ssh/id_demo) với id_demo là tên file mình sẽ lưu khóa công khai và public mới sinh ra.
+
+B3: Nhập mật khẩu an toàn, phần này ta có thể để rỗng
+
+B4: Vậy là đã tạo xong cặp khóa
+
+B5: kiểm tra lại bằng lệnh $ ls -l
+
+Thấy file id_demo (Khóa private) và id_demo.pub (khóa public)
+
+B6 Thêm SSH private key vào ssh-agent. Việc thêm khóa SSH vào ssh-agent đảm bảo rằng khóa SSH của bạn có thêm một lớp bảo mật thông qua việc sử dụng cụm mật khẩu.
+
+$ eval "$(ssh-agent -s)"
+
+$ ssh-add ~/.ssh/id_demo
+
+B7: Copy khóa công khai sử dụng xclip để copy nội dung file
+
+$ xclip -selection clipboard < ~/.ssh/id_demo.pub
+
+Một số lỗi cần chú ý
+
+Một lỗi mà trước kia mình rất hay gặp phải là mình hay copy nhầm khóa public, có thể mình tạo khóa là id_demo như trên nhưng khi copy lại copy khóa id_ed25519
+
+Một lỗi nữa là mình tạo khóa mới rồi ghi đè vào khóa cũ id_ed25519 và khóa cũ sau đó không dùng đươc nữa
+
+Lỗi quên thêm khóa vào ssh-agent ở B6
+
+! Thường xuyên xem lại danh sách khóa SSH của mình và xóa bất kỳ khóa nào không hợp lệ hoặc đã bị xâm phạm.
+
+! Không sử dụng khóa SSH của mình trong một năm thì GitHub sẽ tự động xóa khóa SSH không hoạt động của bạn như một biện pháp bảo mật.
+
+Thêm SSH key vào tài khoản GitHub
+
+Đăng nhập vào tài khảo github, vào phần cài đặt > SSH and GPG keys
+
+Chọn Add new Key để tạo key, nhập title và dán khóa công khai vừa copy vào
+
+Nhập password để xác nhận
+
+Vậy là xong rồi, ta có thể clone, push, pull code bằng giao thức SSh để thuận tiện hơn, mỗi lần thao tác không cần nhập mật khẩu như giao thức https nữa.
+
+https://viblo.asia/p/ket-noi-voi-tai-khoan-github-thong-qua-giao-thuc-ssh-lap-trinh-vien-can-biet-maGK7A2Blj2
+
+Một số lệnh Git:
+
+$ git init
+
+$ git add .
+
+# Adds the files in the local repository and stages them for commit. To unstage a file, use 'git reset HEAD YOUR-FILE'.
+
+$ git commit -m "First commit"
+
+# Commits the tracked changes and prepares them to be pushed to a remote repository. To remove this commit and modify the file, use 'git reset --soft HEAD~1' and commit and add the file again.
+
+$ git remote add origin  <REMOTE_URL> 
+
+# Sets the new remote
+
+$ git remote -v
+
+# Verifies the new remote URL
+
+$ git push origin main
+
+# Pushes the changes in your local repository up to the remote repository you specified as the origin
+
