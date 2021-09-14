@@ -72,7 +72,7 @@ $ git remote -v
 
 # Verifies the new remote URL
 
-$ git push origin main
+$ git push origin main or git push origin 
 
 # Pushes the changes in your local repository up to the remote repository you specified as the origin
 
