@@ -18,4 +18,5 @@ done
 #check large file
 #du -h /var/log/
 #du -h *
+#du -a /var | sort -n -r | head -n 10
 #cat /dev/null > munin-update.log  
