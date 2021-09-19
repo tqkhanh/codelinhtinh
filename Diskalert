@@ -13,3 +13,9 @@ do
   else echo Do Nothing
   fi
 done
+
+
+#check large file
+#du -h /var/log/
+#du -h *
+#cat /dev/null > munin-update.log  
