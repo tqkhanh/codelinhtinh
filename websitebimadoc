@@ -1,0 +1,11 @@
+Các bước fix cho bác nào bị nha.
+
+B1: Vào php admin bảng wp_options thay lại file host
+
+B2: Sau khi đổi host về host chính chủ xong thì vào cài plugin Wordfence quét toàn bộ file. Có kha khá file bị chèn mã độc vào luôn nha
+
+B3: Sau khi quét xong thì vào database, chạy lệnh sql xóa những đoạn text có chèn script trong bảng wp_posts
+
+UPDATE wp_posts SET post_content = REGEXP_REPLACE(post_content, '<script(.*?)>((.|\n)*?)<\/script>', '')
+
+B4: ... chờ đợi xem ngày mai coi còn bị ko thì fix tiếp cách khác: v
