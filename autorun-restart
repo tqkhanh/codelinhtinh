@@ -1,0 +1,10 @@
+#autorun.sh
+cd /var/www/zerogpt.cc/gpt-2-output-dataset-master/ 
+
+nohup python3 -m detector.server /var/www/zerogpt.cc/gpt-2-output-dataset-master/detector-base.pt &
+
+Mở crontab:
+crontab -e
+@reboot bash /root/autorun.sh
+
+Check crontab -l
